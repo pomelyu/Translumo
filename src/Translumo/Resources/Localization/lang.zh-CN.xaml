@@ -102,6 +102,7 @@
     <system:String x:Key="Str.Languages.Japanese">日文</system:String>
     <system:String x:Key="Str.Languages.Korean">韩文</system:String>
     <system:String x:Key="Str.Languages.Chinese">中文 (简体)</system:String>
+    <system:String x:Key="Str.Languages.ChineseTraditional">中文 (繁体)</system:String>
     <system:String x:Key="Str.Languages.Italian">意大利文</system:String>
     <system:String x:Key="Str.Languages.French">法文</system:String>
     <system:String x:Key="Str.Languages.German">德文</system:String>

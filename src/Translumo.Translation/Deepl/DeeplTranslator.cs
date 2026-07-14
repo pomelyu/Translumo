@@ -45,6 +45,11 @@ namespace Translumo.Translation.Deepl
             var sourceLangCode = SourceLangDescriptor.IsoCode.ToUpper();
             var targetLangCode = TargetLangDescriptor.IsoCode.ToUpper();
             var regionalCode = TargetLangDescriptor.RegionalVariant ? TargetLangDescriptor.Code : string.Empty;
+            if (TargetLangDescriptor.Language == Languages.ChineseTraditional)
+            {
+                targetLangCode = "ZH";
+                regionalCode = "zh-Hant";
+            }
 
             var request = new DeepLTranslatorRequest(container.DeeplId, sourceText, sourceLangCode, targetLangCode, regionalCode);
             string dataIn = request.ToJsonString();

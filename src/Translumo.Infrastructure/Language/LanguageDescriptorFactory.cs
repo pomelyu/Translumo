@@ -70,6 +70,7 @@ namespace Translumo.Infrastructure.Language
                 new LanguageDescriptor() { Language = Languages.Slovenian, Code = "sl-SI", IsoCode = "sl", TranslationOnly = true },
                 new LanguageDescriptor() { Language = Languages.Swedish, Code = "sv-SE", IsoCode = "sv", TranslationOnly = true },
                 new LanguageDescriptor() { Language = Languages.Ukrainian, Code = "uk-UA", IsoCode = "uk", TranslationOnly = true },
+                new LanguageDescriptor() { Language = Languages.ChineseTraditional, Code = "zh-TW", IsoCode = "zh-TW", TranslationOnly = true, Asian = true },
             };
         }
     }

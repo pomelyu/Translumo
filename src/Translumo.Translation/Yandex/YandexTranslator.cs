@@ -24,7 +24,18 @@ namespace Translumo.Translation.Yandex
             this._actionDispatcher = actionDispatcher;
             this._sync = new AutoResetEvent(true);
         }
-        
+
+        public override Task<string> TranslateTextAsync(string sourceText)
+        {
+            //TODO: Temp implementation for specific lang
+            if (TargetLangDescriptor.Language == Languages.ChineseTraditional)
+            {
+                throw new TranslationException("Yandex translator is unavailable for this language");
+            }
+
+            return base.TranslateTextAsync(sourceText);
+        }
+
         protected override async Task<string> TranslateTextInternal(YandexContainer container, string sourceText)
         {
             var sourceLangCode = SourceLangDescriptor.IsoCode;
