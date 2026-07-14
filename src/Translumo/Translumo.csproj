@@ -15,6 +15,7 @@
 		<PublishSingleFile>true</PublishSingleFile>
 		<ApplicationIcon>Resources\Icons\favicon.ico</ApplicationIcon>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -143,6 +144,17 @@
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition=" '$(SkipBinariesExtract)' == '' ">
     <Exec Command="&quot;$(SolutionDir)binaries_extract.bat&quot; &quot;$(TargetDir)&quot;" />
+  </Target>
+
+  <Target Name="CopyExternalBinariesToPublish" AfterTargets="Publish">
+    <ItemGroup>
+      <ExternalModelFiles Include="$(TargetDir)models\**\*" />
+      <ExternalPythonFiles Include="$(TargetDir)python\**\*" />
+      <PublishSymbolFiles Include="$(PublishDir)*.pdb" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ExternalModelFiles)" DestinationFolder="$(PublishDir)models\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ExternalPythonFiles)" DestinationFolder="$(PublishDir)python\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Delete Files="@(PublishSymbolFiles)" />
   </Target>
 
 </Project>
