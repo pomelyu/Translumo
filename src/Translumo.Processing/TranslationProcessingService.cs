@@ -334,7 +334,10 @@ namespace Translumo.Processing
             if (!string.IsNullOrWhiteSpace(translation) && !_textResultCacheService.IsTranslatedCached(translation, iterationId))
             {
                 Interlocked.Exchange(ref _lastTranslatedTextTicks, DateTime.UtcNow.Ticks);
-                _chatTextMediator.SendText(translation, true);
+                var displayText = _textProcessingConfiguration.ShowOriginalText
+                    ? $"[[ {text} ]]{Environment.NewLine}{translation}"
+                    : translation;
+                _chatTextMediator.SendText(displayText, true);
                 _ttsEngine.SpeechText(translation);
             }
         }

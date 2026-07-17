@@ -57,6 +57,7 @@
     <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">Цвет окна — изменить</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontColorPanelCaption">Цвет шрифта — изменить</system:String>
     <system:String x:Key="Str.AppearanceSettings.KeepFormatting" xml:space="preserve">Сохранять исходное&#13;форматирование</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ShowOriginalText">Показывать исходный текст</system:String>
     <system:String x:Key="Str.AppearanceSettings.TextAlignment">Выравнивание текста</system:String>
     <system:String x:Key="Str.AppearanceSettings.Left">Выравнивать текст по левому краю</system:String>
     <system:String x:Key="Str.AppearanceSettings.Center">Выравнивать текст по центру</system:String>

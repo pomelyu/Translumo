@@ -123,6 +123,10 @@
                 Margin="10,0,0,0"
                 Orientation="Vertical">
                 <StackPanel Margin="0,0,0,14" Orientation="Horizontal">
+                    <ToggleButton IsChecked="{Binding Model.TextProcessing.ShowOriginalText}" Style="{StaticResource PrimaryToggleButton}" />
+                    <Label Content="{DynamicResource Str.AppearanceSettings.ShowOriginalText}" Style="{StaticResource ControlCaptionLabel}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,0,14" Orientation="Horizontal">
                     <ToggleButton
                         x:Name="ExcludeFromCaptueToggle"
                         IsChecked="{Binding Model.ExcludeFromCaptue}"

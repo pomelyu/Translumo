@@ -8,7 +8,8 @@ namespace Translumo.Processing.Configuration
         {
             KeepFormatting = false,
             AutoClearTexts = false,
-            AutoClearTextsDelayMs = 1000
+            AutoClearTextsDelayMs = 1000,
+            ShowOriginalText = false
         };
 
         public bool KeepFormatting
@@ -38,7 +39,17 @@ namespace Translumo.Processing.Configuration
             }
         }
 
+        public bool ShowOriginalText
+        {
+            get => _showOriginalText;
+            set
+            {
+                SetProperty(ref _showOriginalText, value);
+            }
+        }
+
         private bool _keepFormatting;
+        private bool _showOriginalText;
         private bool _autoClearTexts;
         private uint _autoClearTextsDelayMs;
     }

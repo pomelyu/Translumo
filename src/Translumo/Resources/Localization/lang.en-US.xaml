@@ -57,6 +57,7 @@
     <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">Font size — change</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontColorPanelCaption">Font color — change</system:String>
     <system:String x:Key="Str.AppearanceSettings.KeepFormatting">Keep source formatting</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ShowOriginalText">Show original text</system:String>
     <system:String x:Key="Str.AppearanceSettings.Left">Align Text Left</system:String>
     <system:String x:Key="Str.AppearanceSettings.Center">Align Text Center</system:String>
     <system:String x:Key="Str.AppearanceSettings.Right">Align Text Right</system:String>

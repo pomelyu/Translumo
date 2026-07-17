@@ -57,6 +57,7 @@
     <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">字體大小 — 變更</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontColorPanelCaption">字體顏色 — 變更</system:String>
     <system:String x:Key="Str.AppearanceSettings.KeepFormatting">保留翻譯文字原始格式</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ShowOriginalText">顯示原文</system:String>
     <system:String x:Key="Str.AppearanceSettings.Left">靠左對齊</system:String>
     <system:String x:Key="Str.AppearanceSettings.Center">置中</system:String>
     <system:String x:Key="Str.AppearanceSettings.Right">靠右對齊</system:String>

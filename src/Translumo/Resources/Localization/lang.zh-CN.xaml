@@ -57,6 +57,7 @@
     <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">字体大小 — 改变</system:String>
     <system:String x:Key="Str.AppearanceSettings.FontColorPanelCaption">字体颜色 — 改变</system:String>
     <system:String x:Key="Str.AppearanceSettings.KeepFormatting">保留翻译文本原始格式</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ShowOriginalText">显示原文</system:String>
     <system:String x:Key="Str.AppearanceSettings.Left">左对齐</system:String>
     <system:String x:Key="Str.AppearanceSettings.Center">居中</system:String>
     <system:String x:Key="Str.AppearanceSettings.Right">右对齐</system:String>
