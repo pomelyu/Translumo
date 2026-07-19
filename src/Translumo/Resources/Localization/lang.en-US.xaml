@@ -100,6 +100,8 @@
     <system:String x:Key="Str.LlmSettings.Provider">Service provider</system:String>
     <system:String x:Key="Str.LlmSettings.Model">Model</system:String>
     <system:String x:Key="Str.LlmSettings.ApiKey">API key</system:String>
+    <system:String x:Key="Str.LlmSettings.ServerUrl">Server URL</system:String>
+    <system:String x:Key="Str.LlmSettings.RefreshModels">Refresh</system:String>
     <system:String x:Key="Str.LlmSettings.SystemPrompt">System prompt ({from}/{to} are replaced by the selected languages)</system:String>
     <system:String x:Key="Str.LlmSettings.RestoreDefault">Default</system:String>
 

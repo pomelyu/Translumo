@@ -30,15 +30,15 @@ namespace Translumo.Translation.Llm
 
         protected override async Task<string> TranslateTextInternal(LlmContainer container, string sourceText)
         {
-            if (string.IsNullOrWhiteSpace(_llmConfiguration.ApiKey))
-            {
-                throw new TranslationException("LLM API key is not configured. Enter it in the LLM settings tab.");
-            }
+            var requestUrl = GetChatCompletionsUrl();
 
             var request = new LlmChatRequest()
             {
                 Model = _llmConfiguration.Model,
                 Temperature = 0.2f,
+                ChatTemplateKwargs = _providerDescriptor.RequiresServerUrl
+                    ? new Dictionary<string, object>() { ["enable_thinking"] = false }
+                    : null,
                 Messages = new List<LlmChatMessage>()
                 {
                     new LlmChatMessage() { Role = "system", Content = _systemPrompt },
@@ -47,7 +47,7 @@ namespace Translumo.Translation.Llm
             };
 
             string dataIn = JsonSerializer.Serialize(request);
-            HttpResponse httpResponse = await container.Reader.RequestWebDataAsync(_providerDescriptor.ChatCompletionsUrl, HttpMethods.POST, dataIn)
+            HttpResponse httpResponse = await container.Reader.RequestWebDataAsync(requestUrl, HttpMethods.POST, dataIn)
                 .ConfigureAwait(false);
 
             if (!httpResponse.IsSuccessful)
@@ -71,6 +71,26 @@ namespace Translumo.Translation.Llm
             result.Add(new LlmContainer(_llmConfiguration.ApiKey, isPrimary: true));
 
             return result;
+        }
+
+        private string GetChatCompletionsUrl()
+        {
+            if (_providerDescriptor.RequiresServerUrl)
+            {
+                if (string.IsNullOrWhiteSpace(_llmConfiguration.ServerUrl))
+                {
+                    throw new TranslationException("LLM server URL is not configured. Enter it in the LLM settings tab.");
+                }
+
+                return LlmProviderDescriptor.BuildChatCompletionsUrl(_llmConfiguration.ServerUrl);
+            }
+
+            if (string.IsNullOrWhiteSpace(_llmConfiguration.ApiKey))
+            {
+                throw new TranslationException("LLM API key is not configured. Enter it in the LLM settings tab.");
+            }
+
+            return _providerDescriptor.ChatCompletionsUrl;
         }
 
         private string BuildSystemPrompt(string template)

@@ -7,6 +7,9 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <StackPanel>
         <StackPanel.Resources>
             <Style TargetType="{x:Type StackPanel}">
@@ -25,6 +28,17 @@
                 Content="{DynamicResource Str.LlmSettings.Provider}"
                 Style="{StaticResource ControlCaptionLabel}" />
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBox
+                Width="280"
+                FontSize="14"
+                Style="{DynamicResource MaterialDesignTextBox}"
+                Text="{Binding Model.ServerUrl, UpdateSourceTrigger=LostFocus}" />
+            <Label
+                Margin="10,0,0,0"
+                Content="{DynamicResource Str.LlmSettings.ServerUrl}"
+                Style="{StaticResource ControlCaptionLabel}" />
+        </StackPanel>
         <StackPanel Orientation="Horizontal">
             <ComboBox
                 Width="280"
@@ -33,6 +47,13 @@
                 ItemsSource="{Binding AvailableModels}"
                 Style="{DynamicResource MaterialDesignComboBox}"
                 Text="{Binding Model.Model, UpdateSourceTrigger=LostFocus}" />
+            <Button
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Command="{Binding RefreshModelsCommand}"
+                Content="{DynamicResource Str.LlmSettings.RefreshModels}"
+                Style="{StaticResource PrimaryButton}"
+                Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <Label
                 Margin="10,0,0,0"
                 Content="{DynamicResource Str.LlmSettings.Model}"

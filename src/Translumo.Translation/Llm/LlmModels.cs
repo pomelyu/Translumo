@@ -13,6 +13,11 @@ namespace Translumo.Translation.Llm
 
         [JsonPropertyName("temperature")]
         public float Temperature { get; set; }
+
+        // llama.cpp/vLLM extension to disable reasoning on thinking models; must be omitted for OpenAI-hosted APIs
+        [JsonPropertyName("chat_template_kwargs")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public Dictionary<string, object> ChatTemplateKwargs { get; set; }
     }
 
     public class LlmChatMessage
@@ -34,5 +39,17 @@ namespace Translumo.Translation.Llm
     {
         [JsonPropertyName("message")]
         public LlmChatMessage Message { get; set; }
+    }
+
+    public class LlmModelsResponse
+    {
+        [JsonPropertyName("data")]
+        public List<LlmModelInfo> Data { get; set; }
+    }
+
+    public class LlmModelInfo
+    {
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Translumo.Translation.Llm
@@ -7,6 +8,7 @@ namespace Translumo.Translation.Llm
         public LlmProviders Provider { get; }
         public string ChatCompletionsUrl { get; }
         public IReadOnlyList<string> PresetModels { get; }
+        public bool RequiresServerUrl => ChatCompletionsUrl == null;
 
         private LlmProviderDescriptor(LlmProviders provider, string chatCompletionsUrl, IReadOnlyList<string> presetModels)
         {
@@ -20,6 +22,23 @@ namespace Translumo.Translation.Llm
             return Descriptors[provider];
         }
 
+        public static string BuildChatCompletionsUrl(string serverUrl)
+        {
+            return $"{NormalizeBaseUrl(serverUrl)}/chat/completions";
+        }
+
+        public static string BuildModelsUrl(string serverUrl)
+        {
+            return $"{NormalizeBaseUrl(serverUrl)}/models";
+        }
+
+        private static string NormalizeBaseUrl(string serverUrl)
+        {
+            var baseUrl = serverUrl.Trim().TrimEnd('/');
+
+            return baseUrl.EndsWith("/v1", StringComparison.OrdinalIgnoreCase) ? baseUrl : $"{baseUrl}/v1";
+        }
+
         private static readonly Dictionary<LlmProviders, LlmProviderDescriptor> Descriptors = new()
         {
             [LlmProviders.OpenAI] = new LlmProviderDescriptor(LlmProviders.OpenAI,
@@ -30,7 +49,10 @@ namespace Translumo.Translation.Llm
                 new[] { "gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-2.0-flash" }),
             [LlmProviders.OpenRouter] = new LlmProviderDescriptor(LlmProviders.OpenRouter,
                 "https://openrouter.ai/api/v1/chat/completions",
-                new[] { "google/gemini-2.5-flash-lite", "openai/gpt-4.1-nano", "deepseek/deepseek-chat-v3-0324:free", "qwen/qwen3-235b-a22b:free" })
+                new[] { "google/gemini-2.5-flash-lite", "openai/gpt-4.1-nano", "deepseek/deepseek-chat-v3-0324:free", "qwen/qwen3-235b-a22b:free" }),
+            [LlmProviders.Custom] = new LlmProviderDescriptor(LlmProviders.Custom,
+                chatCompletionsUrl: null,
+                Array.Empty<string>())
         };
     }
 }

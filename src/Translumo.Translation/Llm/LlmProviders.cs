@@ -7,6 +7,8 @@ namespace Translumo.Translation.Llm
 
         Gemini = 1,
 
-        OpenRouter = 2
+        OpenRouter = 2,
+
+        Custom = 3
     }
 }

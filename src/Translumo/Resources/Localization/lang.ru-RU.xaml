@@ -100,6 +100,8 @@
     <system:String x:Key="Str.LlmSettings.Provider">Провайдер сервиса</system:String>
     <system:String x:Key="Str.LlmSettings.Model">Модель</system:String>
     <system:String x:Key="Str.LlmSettings.ApiKey">API-ключ</system:String>
+    <system:String x:Key="Str.LlmSettings.ServerUrl">URL сервера</system:String>
+    <system:String x:Key="Str.LlmSettings.RefreshModels">Обновить</system:String>
     <system:String x:Key="Str.LlmSettings.SystemPrompt">Системный промпт ({from}/{to} заменяются выбранными языками)</system:String>
     <system:String x:Key="Str.LlmSettings.RestoreDefault">По умолчанию</system:String>
 
