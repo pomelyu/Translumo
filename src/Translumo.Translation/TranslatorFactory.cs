@@ -5,6 +5,7 @@ using Translumo.Infrastructure.Language;
 using Translumo.Translation.Configuration;
 using Translumo.Translation.Deepl;
 using Translumo.Translation.Google;
+using Translumo.Translation.Llm;
 using Translumo.Translation.Papago;
 using Translumo.Translation.Yandex;
 
@@ -14,12 +15,15 @@ namespace Translumo.Translation
     {
         private readonly LanguageService _languageService;
         private readonly IActionDispatcher _actionDispatcher;
+        private readonly LlmTranslationConfiguration _llmConfiguration;
         private readonly ILogger _logger;
 
-        public TranslatorFactory(LanguageService languageService, IActionDispatcher actionDispatcher, ILogger<TranslatorFactory> logger)
+        public TranslatorFactory(LanguageService languageService, IActionDispatcher actionDispatcher,
+            LlmTranslationConfiguration llmConfiguration, ILogger<TranslatorFactory> logger)
         {
             this._languageService = languageService;
             this._actionDispatcher = actionDispatcher;
+            this._llmConfiguration = llmConfiguration;
             this._logger = logger;
         }
 
@@ -35,6 +39,8 @@ namespace Translumo.Translation
                     return new PapagoTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:
                     return new GoogleTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.LLM:
+                    return new LlmTranslator(translatorConfiguration, _llmConfiguration, _languageService, _logger);
                 default:
                     throw new NotSupportedException();
             }

@@ -120,10 +120,12 @@ namespace Translumo
             services.AddScoped<HotkeysSettingsViewModel>();
             services.AddScoped<LanguagesSettingsViewModel>();
             services.AddScoped<OcrSettingsViewModel>();
+            services.AddScoped<LlmSettingsViewModel>();
 
             var chatWindowConfiguration = ChatWindowConfiguration.Default;
             services.AddSingleton<OcrGeneralConfiguration>(OcrGeneralConfiguration.Default);
             services.AddSingleton<TranslationConfiguration>(TranslationConfiguration.Default);
+            services.AddSingleton<LlmTranslationConfiguration>(LlmTranslationConfiguration.Default);
             services.AddSingleton<TtsConfiguration>(TtsConfiguration.Default);
             services.AddSingleton<ChatWindowConfiguration>(chatWindowConfiguration);
             services.AddSingleton<HotKeysConfiguration>(HotKeysConfiguration.Default);

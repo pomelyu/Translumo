@@ -96,6 +96,12 @@
     <system:String x:Key="Str.Navigation.Appearance">翻译墙</system:String>
     <system:String x:Key="Str.Navigation.Ocr">文字识别器</system:String>
     <system:String x:Key="Str.Navigation.HotKeys">快捷键</system:String>
+    <system:String x:Key="Str.Navigation.Llm">LLM</system:String>
+    <system:String x:Key="Str.LlmSettings.Provider">服务提供商</system:String>
+    <system:String x:Key="Str.LlmSettings.Model">模型</system:String>
+    <system:String x:Key="Str.LlmSettings.ApiKey">API 密钥</system:String>
+    <system:String x:Key="Str.LlmSettings.SystemPrompt">系统提示词（{from}/{to} 会替换为所选语言）</system:String>
+    <system:String x:Key="Str.LlmSettings.RestoreDefault">恢复默认</system:String>
 
     <!--  Languages  -->
     <system:String x:Key="Str.Languages.English">英文</system:String>

@@ -42,6 +42,7 @@ namespace Translumo.Processing
         private IEnumerable<IOCREngine> _engines;
         private ITranslator _translator;
         private TranslationConfiguration _translationConfiguration;
+        private LlmTranslationConfiguration _llmTranslationConfiguration;
         private OcrGeneralConfiguration _ocrGeneralConfiguration;
         private TextProcessingConfiguration _textProcessingConfiguration;
 
@@ -55,8 +56,9 @@ namespace Translumo.Processing
         
         public TranslationProcessingService(ICapturerFactory capturerFactory, IChatTextMediator chatTextMediator, OcrEnginesFactory ocrEnginesFactory,
             TranslatorFactory translationFactory, TtsFactory ttsFactory, TtsConfiguration ttsConfiguration,
-            TextDetectionProvider textProvider, TranslationConfiguration translationConfiguration, OcrGeneralConfiguration ocrConfiguration, 
-            TextResultCacheService textResultCacheService, TextProcessingConfiguration textConfiguration, ILogger<TranslationProcessingService> logger)
+            TextDetectionProvider textProvider, TranslationConfiguration translationConfiguration, OcrGeneralConfiguration ocrConfiguration,
+            TextResultCacheService textResultCacheService, TextProcessingConfiguration textConfiguration,
+            LlmTranslationConfiguration llmTranslationConfiguration, ILogger<TranslationProcessingService> logger)
         {
             _logger = logger;
             _chatTextMediator = chatTextMediator;
@@ -75,7 +77,10 @@ namespace Translumo.Processing
             _translator = _translatorFactory.CreateTranslator(_translationConfiguration);
             _textProvider.Language = translationConfiguration.TranslateFromLang;
 
+            _llmTranslationConfiguration = llmTranslationConfiguration;
+
             _translationConfiguration.PropertyChanged += TranslationConfigurationOnPropertyChanged;
+            _llmTranslationConfiguration.PropertyChanged += LlmTranslationConfigurationOnPropertyChanged;
             _ocrGeneralConfiguration.PropertyChanged += OcrGeneralConfigurationOnPropertyChanged;
             _ttsConfiguration.PropertyChanged += TtsConfigurationOnPropertyChanged;
         }
@@ -403,6 +408,14 @@ namespace Translumo.Processing
             }
 
             _translator = _translatorFactory.CreateTranslator(_translationConfiguration);
+        }
+
+        private void LlmTranslationConfigurationOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (_translationConfiguration.Translator == Translators.LLM)
+            {
+                _translator = _translatorFactory.CreateTranslator(_translationConfiguration);
+            }
         }
 
         private void TtsConfigurationOnPropertyChanged(object sender, PropertyChangedEventArgs e)

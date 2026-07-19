@@ -19,6 +19,7 @@ namespace Translumo.Utils
                 confStorage.RegisterConfiguration<ChatWindowConfiguration>();
                 confStorage.RegisterConfiguration<OcrGeneralConfiguration>();
                 confStorage.RegisterConfiguration<TranslationConfiguration>();
+                confStorage.RegisterConfiguration<LlmTranslationConfiguration>();
                 confStorage.RegisterConfiguration<TtsConfiguration>();
                 confStorage.RegisterConfiguration<SystemConfiguration>();
                 confStorage.RegisterConfiguration<HotKeysConfiguration>();

@@ -41,6 +41,9 @@
         <DataTemplate DataType="{x:Type viewModels:OcrSettingsViewModel}">
             <views:OcrSettingsView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:LlmSettingsViewModel}">
+            <views:LlmSettingsView />
+        </DataTemplate>
         <common:CaseConverter x:Key="CaseConverter" Case="Upper" />
         <common:BoolBrushConverter
             x:Key="HasUpdatesConverter"

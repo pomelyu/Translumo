@@ -96,6 +96,12 @@
     <system:String x:Key="Str.Navigation.Appearance">Appearance</system:String>
     <system:String x:Key="Str.Navigation.Ocr">Text recognition</system:String>
     <system:String x:Key="Str.Navigation.HotKeys">Hotkeys</system:String>
+    <system:String x:Key="Str.Navigation.Llm">LLM</system:String>
+    <system:String x:Key="Str.LlmSettings.Provider">Service provider</system:String>
+    <system:String x:Key="Str.LlmSettings.Model">Model</system:String>
+    <system:String x:Key="Str.LlmSettings.ApiKey">API key</system:String>
+    <system:String x:Key="Str.LlmSettings.SystemPrompt">System prompt ({from}/{to} are replaced by the selected languages)</system:String>
+    <system:String x:Key="Str.LlmSettings.RestoreDefault">Default</system:String>
 
     <!--  Languages  -->
     <system:String x:Key="Str.Languages.English">English</system:String>

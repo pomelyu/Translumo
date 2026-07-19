@@ -96,6 +96,12 @@
     <system:String x:Key="Str.Navigation.Appearance">翻譯視窗</system:String>
     <system:String x:Key="Str.Navigation.Ocr">文字辨識器</system:String>
     <system:String x:Key="Str.Navigation.HotKeys">快捷鍵</system:String>
+    <system:String x:Key="Str.Navigation.Llm">LLM</system:String>
+    <system:String x:Key="Str.LlmSettings.Provider">服務提供商</system:String>
+    <system:String x:Key="Str.LlmSettings.Model">模型</system:String>
+    <system:String x:Key="Str.LlmSettings.ApiKey">API 金鑰</system:String>
+    <system:String x:Key="Str.LlmSettings.SystemPrompt">系統提示詞（{from}/{to} 會替換為所選語言）</system:String>
+    <system:String x:Key="Str.LlmSettings.RestoreDefault">恢復預設</system:String>
 
     <!--  Languages  -->
     <system:String x:Key="Str.Languages.English">英文</system:String>
