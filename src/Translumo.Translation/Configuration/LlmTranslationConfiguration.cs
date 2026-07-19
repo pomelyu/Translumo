@@ -5,8 +5,7 @@ namespace Translumo.Translation.Configuration
 {
     public class LlmTranslationConfiguration : BindableBase
     {
-        public const string DEFAULT_SYSTEM_PROMPT = "You are a translation engine for on-screen game/application text captured by OCR. " +
-                                                    "Translate the user's text from {from} to {to}. Keep character names and terms consistent, " +
+        public const string DEFAULT_SYSTEM_PROMPT = "Translate the user's text from {from} to {to}. Keep character names and terms consistent, " +
                                                     "fix obvious OCR artifacts, and output ONLY the translation with no explanations.";
 
         public const string DEFAULT_SERVER_URL = "http://127.0.0.1:8080";
