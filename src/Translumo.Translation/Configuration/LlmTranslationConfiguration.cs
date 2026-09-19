@@ -13,7 +13,7 @@ namespace Translumo.Translation.Configuration
         public static LlmTranslationConfiguration Default => new LlmTranslationConfiguration()
         {
             Provider = LlmProviders.Gemini,
-            Model = "gemini-2.5-flash-lite",
+            Model = LlmProviderDescriptor.Get(LlmProviders.Gemini).DefaultModel,
             ApiKey = string.Empty,
             ServerUrl = DEFAULT_SERVER_URL,
             SystemPromptTemplate = DEFAULT_SYSTEM_PROMPT

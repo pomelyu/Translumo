@@ -66,14 +66,7 @@ namespace Translumo.MVVM.ViewModels
             {
                 case nameof(Model.Provider):
                     OnPropertyChanged(nameof(IsCustomProvider));
-                    if (!IsCustomProvider)
-                    {
-                        Model.Model = LlmProviderDescriptor.Get(Model.Provider).PresetModels[0];
-                    }
-                    else
-                    {
-                        Model.Model = string.Empty;
-                    }
+                    Model.Model = LlmProviderDescriptor.Get(Model.Provider).DefaultModel;
                     RefreshAvailableModels();
                     break;
                 case nameof(Model.ApiKey):

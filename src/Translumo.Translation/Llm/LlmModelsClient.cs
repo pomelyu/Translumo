@@ -93,8 +93,12 @@ namespace Translumo.Translation.Llm
                 }
             } while (nextUrl != null);
 
+            var defaultModel = LlmProviderDescriptor.Get(provider).DefaultModel;
             return models.Where(id => !string.IsNullOrWhiteSpace(id))
-                .Distinct(StringComparer.Ordinal).OrderBy(id => id, StringComparer.Ordinal).ToArray();
+                .Distinct(StringComparer.Ordinal)
+                .OrderByDescending(id => string.Equals(id, defaultModel, StringComparison.Ordinal))
+                .ThenBy(id => id, StringComparer.Ordinal)
+                .ToArray();
         }
     }
 }
