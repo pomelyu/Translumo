@@ -9,6 +9,10 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style x:Key="LlmFieldLabel" TargetType="Label" BasedOn="{StaticResource ControlCaptionLabel}">
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="ContentStringFormat" Value="{}{0}:" />
+        </Style>
     </UserControl.Resources>
     <StackPanel>
         <StackPanel.Resources>
@@ -17,29 +21,40 @@
             </Style>
         </StackPanel.Resources>
         <StackPanel Orientation="Horizontal">
+            <Label
+                Content="{DynamicResource Str.LlmSettings.Provider}"
+                Style="{StaticResource LlmFieldLabel}" />
             <ComboBox
                 Width="130"
                 FontSize="14"
                 ItemsSource="{Binding AvailableProviders}"
                 SelectedItem="{Binding Model.Provider}"
                 Style="{DynamicResource MaterialDesignComboBox}" />
-            <Label
-                Margin="10,0,0,0"
-                Content="{DynamicResource Str.LlmSettings.Provider}"
-                Style="{StaticResource ControlCaptionLabel}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Label
+                Content="{DynamicResource Str.LlmSettings.ServerUrl}"
+                Style="{StaticResource LlmFieldLabel}" />
             <TextBox
                 Width="280"
                 FontSize="14"
                 Style="{DynamicResource MaterialDesignTextBox}"
                 Text="{Binding Model.ServerUrl, UpdateSourceTrigger=LostFocus}" />
-            <Label
-                Margin="10,0,0,0"
-                Content="{DynamicResource Str.LlmSettings.ServerUrl}"
-                Style="{StaticResource ControlCaptionLabel}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
+            <Label
+                Content="{DynamicResource Str.LlmSettings.ApiKey}"
+                Style="{StaticResource LlmFieldLabel}" />
+            <TextBox
+                Width="280"
+                FontSize="14"
+                Style="{DynamicResource MaterialDesignTextBox}"
+                Text="{Binding Model.ApiKey, UpdateSourceTrigger=LostFocus}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label
+                Content="{DynamicResource Str.LlmSettings.Model}"
+                Style="{StaticResource LlmFieldLabel}" />
             <ComboBox
                 Width="280"
                 FontSize="14"
@@ -52,23 +67,7 @@
                 VerticalAlignment="Center"
                 Command="{Binding RefreshModelsCommand}"
                 Content="{DynamicResource Str.LlmSettings.RefreshModels}"
-                Style="{StaticResource PrimaryButton}"
-                Visibility="{Binding IsCustomProvider, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <Label
-                Margin="10,0,0,0"
-                Content="{DynamicResource Str.LlmSettings.Model}"
-                Style="{StaticResource ControlCaptionLabel}" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBox
-                Width="280"
-                FontSize="14"
-                Style="{DynamicResource MaterialDesignTextBox}"
-                Text="{Binding Model.ApiKey, UpdateSourceTrigger=LostFocus}" />
-            <Label
-                Margin="10,0,0,0"
-                Content="{DynamicResource Str.LlmSettings.ApiKey}"
-                Style="{StaticResource ControlCaptionLabel}" />
+                Style="{StaticResource PrimaryButton}" />
         </StackPanel>
         <StackPanel Orientation="Vertical">
             <Label Content="{DynamicResource Str.LlmSettings.SystemPrompt}" Style="{StaticResource ControlCaptionLabel}" />

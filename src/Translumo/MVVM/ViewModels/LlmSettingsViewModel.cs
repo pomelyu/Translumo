@@ -93,10 +93,7 @@ namespace Translumo.MVVM.ViewModels
 
         private void OnRefreshModels()
         {
-            if (IsCustomProvider)
-            {
-                FetchServerModelsAsync();
-            }
+            RefreshAvailableModels();
         }
 
         private void OnRestoreDefaultPrompt()
