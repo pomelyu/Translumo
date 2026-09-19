@@ -11,6 +11,8 @@ namespace Translumo.Translation
 
         Papago = 3,
 
-        LLM = 4
+        LLM = 4,
+
+        GoogleSDK = 5
     }
 }

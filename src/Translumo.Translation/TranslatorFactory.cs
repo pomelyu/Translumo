@@ -39,6 +39,8 @@ namespace Translumo.Translation
                     return new PapagoTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.Google:
                     return new GoogleTranslator(translatorConfiguration, _languageService, _logger);
+                case Translators.GoogleSDK:
+                    return new GoogleSdkTranslator(translatorConfiguration, _languageService, _logger);
                 case Translators.LLM:
                     return new LlmTranslator(translatorConfiguration, _llmConfiguration, _languageService, _logger);
                 default:

@@ -40,6 +40,12 @@ namespace Translumo.Translation.Configuration
             }
         }
 
+        public string GoogleApiKey
+        {
+            get => _googleApiKey;
+            set => SetProperty(ref _googleApiKey, value);
+        }
+
         public List<Proxy> ProxySettings
         {
             get => _proxySettings;
@@ -52,6 +58,7 @@ namespace Translumo.Translation.Configuration
         private Languages _translateFromLang;
         private Languages _translateToLang;
         private Translators _translator;
+        private string _googleApiKey = string.Empty;
         private List<Proxy> _proxySettings = new List<Proxy>();
     }
 }
