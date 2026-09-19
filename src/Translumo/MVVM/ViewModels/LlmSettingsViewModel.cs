@@ -16,13 +16,39 @@ namespace Translumo.MVVM.ViewModels
 
         public LlmProviders[] AvailableProviders { get; } = (LlmProviders[])Enum.GetValues(typeof(LlmProviders));
 
-        public ObservableCollection<string> AvailableModels { get; } = new ObservableCollection<string>();
+        public ObservableCollection<string> AvailableModels
+        {
+            get => _availableModels;
+            private set => SetProperty(ref _availableModels, value);
+        }
+
+        private ObservableCollection<string> _availableModels = new ObservableCollection<string>();
+
+        public string ModelsStatus
+        {
+            get => _modelsStatus;
+            private set => SetProperty(ref _modelsStatus, value);
+        }
+
+        private string _modelsStatus;
+
+        public bool IsRefreshingModels
+        {
+            get => _isRefreshingModels;
+            private set
+            {
+                SetProperty(ref _isRefreshingModels, value);
+                CommandManager.InvalidateRequerySuggested();
+            }
+        }
+
+        private bool _isRefreshingModels;
 
         public bool IsCustomProvider => LlmProviderDescriptor.Get(Model.Provider).RequiresServerUrl;
 
         public ICommand RestoreDefaultPromptCommand => new RelayCommand(OnRestoreDefaultPrompt);
 
-        public ICommand RefreshModelsCommand => new RelayCommand(OnRefreshModels);
+        public ICommand RefreshModelsCommand => new RelayCommand(OnRefreshModels, () => !IsRefreshingModels);
 
         private int _modelsRequestVersion;
 
@@ -40,11 +66,18 @@ namespace Translumo.MVVM.ViewModels
             {
                 case nameof(Model.Provider):
                     OnPropertyChanged(nameof(IsCustomProvider));
-                    RefreshAvailableModels();
                     if (!IsCustomProvider)
                     {
                         Model.Model = LlmProviderDescriptor.Get(Model.Provider).PresetModels[0];
                     }
+                    else
+                    {
+                        Model.Model = string.Empty;
+                    }
+                    RefreshAvailableModels();
+                    break;
+                case nameof(Model.ApiKey):
+                    RefreshAvailableModels();
                     break;
                 case nameof(Model.ServerUrl):
                     if (IsCustomProvider)
@@ -57,43 +90,51 @@ namespace Translumo.MVVM.ViewModels
 
         private void RefreshAvailableModels()
         {
-            if (IsCustomProvider)
-            {
-                FetchServerModelsAsync();
-                return;
-            }
+            // Invalidate requests even when the new settings cannot yet be queried.
+            ++_modelsRequestVersion;
+            IsRefreshingModels = false;
+            ModelsStatus = string.Empty;
+            var selectedModel = Model.Model;
+            AvailableModels = new ObservableCollection<string>(string.IsNullOrWhiteSpace(selectedModel)
+                ? Array.Empty<string>() : new[] { selectedModel });
+            Model.Model = selectedModel;
 
-            AvailableModels.Clear();
-            foreach (var model in LlmProviderDescriptor.Get(Model.Provider).PresetModels)
-            {
-                AvailableModels.Add(model);
-            }
+            if (IsCustomProvider ? !string.IsNullOrWhiteSpace(Model.ServerUrl) : !string.IsNullOrWhiteSpace(Model.ApiKey))
+                FetchServerModelsAsync();
         }
 
         private async void FetchServerModelsAsync()
         {
             var requestVersion = ++_modelsRequestVersion;
-            var models = await LlmModelsClient.GetAvailableModelsAsync(Model.ServerUrl, Model.ApiKey);
-            if (requestVersion != _modelsRequestVersion || !IsCustomProvider)
+            IsRefreshingModels = true;
+            ModelsStatus = "Loading models...";
+            try
             {
-                return;
-            }
+                var models = await LlmModelsClient.GetAvailableModelsAsync(Model.Provider, Model.ServerUrl, Model.ApiKey);
+                if (requestVersion != _modelsRequestVersion)
+                    return;
 
-            AvailableModels.Clear();
-            foreach (var model in models)
-            {
-                AvailableModels.Add(model);
+                // Replacing the collection avoids transient selection changes while clearing it.
+                var selectedModel = Model.Model;
+                AvailableModels = new ObservableCollection<string>(models);
+                Model.Model = string.IsNullOrWhiteSpace(selectedModel) ? models.FirstOrDefault() ?? string.Empty : selectedModel;
+                ModelsStatus = models.Count == 0 ? "No models returned." : $"Loaded {models.Count} models.";
             }
-
-            if (models.Any() && (string.IsNullOrWhiteSpace(Model.Model) || !models.Contains(Model.Model)))
+            catch (Exception ex)
             {
-                Model.Model = models[0];
+                if (requestVersion == _modelsRequestVersion)
+                    ModelsStatus = ex is InvalidOperationException ? ex.Message : "Unable to retrieve models. Check your connection and settings.";
+            }
+            finally
+            {
+                if (requestVersion == _modelsRequestVersion)
+                    IsRefreshingModels = false;
             }
         }
 
         private void OnRefreshModels()
         {
-            RefreshAvailableModels();
+            FetchServerModelsAsync();
         }
 
         private void OnRestoreDefaultPrompt()

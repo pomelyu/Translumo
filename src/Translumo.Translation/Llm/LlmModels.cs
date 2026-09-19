@@ -51,5 +51,35 @@ namespace Translumo.Translation.Llm
     {
         [JsonPropertyName("id")]
         public string Id { get; set; }
+
+        [JsonPropertyName("architecture")]
+        public LlmModelArchitecture Architecture { get; set; }
+    }
+
+    public class LlmModelArchitecture
+    {
+        [JsonPropertyName("input_modalities")]
+        public List<string> InputModalities { get; set; }
+
+        [JsonPropertyName("output_modalities")]
+        public List<string> OutputModalities { get; set; }
+    }
+
+    public class GeminiModelsResponse
+    {
+        [JsonPropertyName("models")]
+        public List<GeminiModelInfo> Models { get; set; }
+
+        [JsonPropertyName("nextPageToken")]
+        public string NextPageToken { get; set; }
+    }
+
+    public class GeminiModelInfo
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("supportedGenerationMethods")]
+        public List<string> SupportedGenerationMethods { get; set; }
     }
 }

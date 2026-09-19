@@ -69,6 +69,10 @@
                 Content="{DynamicResource Str.LlmSettings.RefreshModels}"
                 Style="{StaticResource PrimaryButton}" />
         </StackPanel>
+        <TextBlock
+            Margin="0,0,0,10"
+            Text="{Binding ModelsStatus}"
+            TextWrapping="Wrap" />
         <StackPanel Orientation="Vertical">
             <Label Content="{DynamicResource Str.LlmSettings.SystemPrompt}" Style="{StaticResource ControlCaptionLabel}" />
             <TextBox
