@@ -102,7 +102,21 @@
                             SelectedValuePath="Name">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding TwoLetterISOLanguageName, Converter={StaticResource CaseConverter}}" Style="{StaticResource LightLabel}" />
+                                    <Label>
+                                        <Label.Style>
+                                            <Style TargetType="Label" BasedOn="{StaticResource LightLabel}">
+                                                <Setter Property="Content" Value="{Binding TwoLetterISOLanguageName, Converter={StaticResource CaseConverter}}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Name}" Value="zh-CN">
+                                                        <Setter Property="Content" Value="ZH-CH" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Name}" Value="zh-TW">
+                                                        <Setter Property="Content" Value="ZH-TW" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.ItemsPanel>
